@@ -143,6 +143,21 @@ section h3 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight:
 .zone dt { color: var(--muted); }
 .zone dd { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
 .zone a { color: var(--accent); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag {
+  font-size: 12.5px; padding: 2px 9px; border-radius: 6px; font-weight: 500;
+  background: var(--bg); border: 1px solid var(--line); color: var(--ink);
+}
+.zone dl.conds { grid-template-columns: 4.5em 1fr; gap: 6px 10px; font-size: 13.5px; margin-top: 10px; }
+.zone dl.conds dt { font-weight: 500; }
+.zone dl.conds dd div + div { margin-top: 4px; }
+.conds .k-open { color: var(--green); }
+.conds .k-ban { color: var(--red); }
+.conds .k-who { color: var(--yellow); }
+.conds .k-apply { color: var(--accent); }
+details.raw { margin-top: 8px; font-size: 12.5px; }
+details.raw summary { cursor: pointer; color: var(--muted); }
+details.raw .desc { font-size: 12.5px; color: var(--muted); }
 .empty { font-size: 13.5px; color: var(--muted); margin: 0; }
 
 .rules { font-size: 13.5px; margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 3px; }
@@ -446,6 +461,7 @@ section h3 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight:
       contact: a['聯絡方式'],
       penalty: a['罰則'],
       period: p.text, status: p.status, geom: f.geometry,
+      conds: parseConds(a['空域說明'], (a['空域類別名稱'] || '') + ' ' + (a['空域名稱'] || '')),
     };
   }
 
@@ -465,10 +481,73 @@ section h3 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight:
         <span class="name">${esc(z.name)}</span>
       </div>
       ${z.cat ? `<div class="cat">${esc(z.cat)}</div>` : ''}
-      ${z.desc ? `<p class="desc">${esc(z.desc.trim())}</p>` : ''}
+      ${condBlock(z)}
       ${rows.length ? `<dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${esc(String(v).trim())}</dd>`).join('')}</dl>` : ''}
       ${z.link ? `<p class="desc"><a href="${esc(z.link)}" target="_blank" rel="noopener">管理處相關規定</a></p>` : ''}
     </article>`;
+  }
+
+  // <conds> 從「空域說明」整理出限高、開放、禁止、申請、限對象等條件
+  const FT_M = 0.3048;
+  function parseHeight(text) {
+    const t = text.replace(/（/g, '(').replace(/）/g, ')').replace(/\s+/g, '');
+    let m = t.match(/(\d+)(?:英呎|呎)\((\d+)(?:公尺|m)\)/i);
+    if (m) return { ft: +m[1], m: +m[2] };
+    m = t.match(/(\d+)(英呎|呎|公尺|m)(?:以上禁止|以下)/i) || t.match(/(?:限制?高度|高度上限)為?(\d+)(英呎|呎|公尺|m)/i);
+    if (!m) return null;
+    const v = +m[1];
+    // 呎換公尺取 5 的倍數往下捨，與公告慣用寫法一致（400 呎 = 120 公尺）
+    return /呎/.test(m[2]) ? { ft: v, m: Math.floor(v * FT_M / 5) * 5 } : { m: v, ft: Math.round(v / 0.3) };
+  }
+  const shorten = (s) => s
+    .replace(/(從事)?遙控無人機(飛航)?活動/g, '飛行')
+    .replace(/^[\s\d]+[.、．)]\s*/, '')
+    .replace(/<[^>]*>/g, '')
+    .trim();
+  function parseConds(desc, cat) {
+    const text = String(desc || '');
+    const clauses = text
+      .replace(/<[^>]*>/g, '\n')
+      .split(/[\r\n]+|。|；|;|，(?=因|申請|惟|但|倘|如|非本校|週末|星期|假日)/)
+      .map(shorten)
+      .filter((s) => s.length > 1);
+    const out = { open: [], ban: [], apply: [], who: [], height: parseHeight(text) || parseHeight(cat || ''), tempClose: /臨時關閉|另行.{0,6}通告/.test(text) };
+    for (const c of clauses) {
+      if (/臨時關閉|另行.{0,6}通告/.test(c) && c.length < 20) continue;
+      if (/申請|同意|核准|會商|許可/.test(c)) out.apply.push(c);
+      else if (/僅得|僅限|限本校|限.{0,8}(師生|教職員|學生|課程|業務|訓練|測驗)|除.{1,30}外/.test(c) && !/開放/.test(c)) out.who.push(c);
+      else if (/禁止/.test(c)) out.ban.push(c);
+      else if (/開放|得從事|可從事/.test(c)) out.open.push(c);
+    }
+    const timed = /週|星期|假日|日出|日落|上午|下午|時至|點至|\d+時|\d+:\d\d|每日|全日|月\d+日/;
+    out.timed = out.open.some((c) => timed.test(c)) || out.ban.some((c) => timed.test(c));
+    return out;
+  }
+  function condTags(c) {
+    const tags = [];
+    if (c.height) tags.push(`限高 ${c.height.m} 公尺（${c.height.ft} 呎）`);
+    if (c.open.length) tags.push(c.timed ? '限時段開放' : '有條件開放');
+    else if (c.timed) tags.push('部分時段禁止');
+    if (c.who.length) tags.push('限特定對象');
+    if (c.apply.length) tags.push('需申請或經同意');
+    if (c.tempClose) tags.push('可能臨時關閉');
+    return tags;
+  }
+  // </conds>
+
+  const COND_ROWS = [['open', '可以飛'], ['ban', '禁止'], ['who', '限定對象'], ['apply', '申請方式']];
+  function condBlock(z) {
+    if (!z.desc) return '';
+    const raw = esc(z.desc.trim());
+    if (z.level !== 'yellow' && z.level !== 'red') return `<p class="desc">${raw}</p>`;
+    const c = z.conds;
+    const tags = condTags(c);
+    const rows = COND_ROWS.filter(([k]) => c[k].length);
+    if (!tags.length && !rows.length) return `<p class="desc">${raw}</p>`;
+    return `${tags.length ? `<div class="tags">${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''}
+      ${rows.length ? `<dl class="conds">${rows.map(([k, label]) =>
+        `<dt class="k-${k}">${label}</dt><dd>${c[k].map((s) => `<div>${esc(s)}</div>`).join('')}</dd>`).join('')}</dl>` : ''}
+      <details class="raw"><summary>公告原文</summary><p class="desc">${raw}</p></details>`;
   }
 
   // ---------- Verdict ----------
@@ -483,8 +562,17 @@ section h3 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight:
     const act = hits.filter((z) => z.status === 'active');
     if (act.some((z) => z.level === 'red'))
       return ['red', '紅區：禁止飛航', '此處位於禁止從事遙控無人機活動的區域。除非事先取得主管機關（及會商機關）同意，否則不可飛。'];
-    if (act.some((z) => z.level === 'yellow' || z.level === 'port'))
-      return ['yellow', '黃區：有條件限制', '此處有飛航限制（例如限高、限時或需事先申請），請詳閱下方說明並向主管機關申請。'];
+    if (act.some((z) => z.level === 'yellow' || z.level === 'port')) {
+      const ys = act.filter((z) => z.level === 'yellow' && z.conds);
+      const hs = ys.map((z) => z.conds.height?.m).filter(Boolean);
+      const parts = [];
+      if (hs.length) parts.push(`高度須在 ${Math.min(...hs)} 公尺以下`);
+      if (ys.some((z) => z.conds.open.length && z.conds.timed)) parts.push('只能在開放時段飛');
+      if (ys.some((z) => z.conds.who.length)) parts.push('部分區域只開放特定對象');
+      if (ys.some((z) => z.conds.apply.length) || act.some((z) => z.level === 'port')) parts.push('不符合條件就要先申請');
+      const summary = parts.length ? parts.join('、') + '。' : '有限高、限時或需事先申請等條件。';
+      return ['yellow', '黃區：有條件限制', '此處' + summary + '各區條件整理在下方，以公告原文為準。'];
+    }
     if (act.some((z) => z.level === 'park'))
       return ['yellow', '國家公園範圍：需另行申請', '此處不在民航局紅黃區內，但位於國家公園，須依管理處規定辦理。'];
     return ['green', '綠區：可依一般規定飛航', '此處不在民航局公告的禁限航區內。仍須遵守下列基本規定，並留意私人土地與現場管制。'];
