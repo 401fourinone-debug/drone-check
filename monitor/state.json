@@ -1,0 +1,296 @@
+{
+ "lastChecked": "2026-11-06",
+ "services": [
+  "Hosted/CAA_Layer_Current_Edition/FeatureServer",
+  "Hosted/Commercial_Port_fs/FeatureServer",
+  "Hosted/Confirm_XY/FeatureServer",
+  "Hosted/County/FeatureServer",
+  "Hosted/County_fs/FeatureServer",
+  "Hosted/County_vtpk/VectorTileServer",
+  "Hosted/EMG_Area/FeatureServer",
+  "Hosted/Kinmen_Matsu_Drone_Zone_fs/FeatureServer",
+  "Hosted/NFZ/FeatureServer",
+  "Hosted/National_Park_fs/FeatureServer",
+  "Hosted/National_Park_vtpk/VectorTileServer",
+  "Hosted/Taipei_FIR/FeatureServer",
+  "Hosted/Temporary_Area/FeatureServer",
+  "Hosted/UAV_Fly_Zone_Complete/FeatureServer",
+  "Hosted/UAV_Fly_Zone_Cut/FeatureServer",
+  "Hosted/UAV_Fly_Zone_singal/FeatureServer",
+  "Hosted/UAV_fs/FeatureServer",
+  "Hosted/UAV_fs_g/FeatureServer",
+  "Hosted/UAV_fs_ryg/FeatureServer",
+  "Hosted/UAV_ry_vtpk/VectorTileServer",
+  "Hosted/UAV_ryg_vtpk/VectorTileServer",
+  "Hosted/UAV_ryg_vtpk_20251223/FeatureServer",
+  "Hosted/res_dtm_100m/FeatureServer",
+  "Hosted/商港區範圍_vtpk_20260202/VectorTileServer",
+  "Hosted/紅區縣市/FeatureServer"
+ ],
+ "layers": {
+  "UAV_fs/FeatureServer/3": {
+   "name": "UAV_fs_ry",
+   "fields": [
+    "objectid",
+    "主管機關",
+    "主管機關名稱",
+    "會商機關名稱",
+    "會商機關",
+    "空域名稱",
+    "空域類別名稱",
+    "空域說明",
+    "聯絡方式",
+    "空域類型",
+    "罰則",
+    "限制區",
+    "created_user",
+    "created_date",
+    "last_edited_user",
+    "last_edited_date",
+    "有效日期起",
+    "有效日期迄",
+    "二級機關",
+    "三級機關",
+    "條件",
+    "空域顏色",
+    "空域類別",
+    "countyid",
+    "SHAPE__Length",
+    "SHAPE__Area"
+   ]
+  },
+  "Temporary_Area/FeatureServer/19": {
+   "name": "Temporary_Area_20241205",
+   "fields": [
+    "objectid",
+    "主管機關",
+    "主管機關名稱",
+    "會商機關名稱",
+    "會商機關",
+    "空域名稱",
+    "空域類別名稱",
+    "空域說明",
+    "聯絡方式",
+    "空域類型",
+    "罰則",
+    "限制區",
+    "created_user",
+    "created_date",
+    "last_edited_user",
+    "last_edited_date",
+    "有效日期起",
+    "有效日期迄",
+    "二級機關",
+    "三級機關",
+    "條件",
+    "空域顏色",
+    "空域類別",
+    "countyid",
+    "SHAPE__Length",
+    "SHAPE__Area"
+   ]
+  },
+  "National_Park_fs/FeatureServer/0": {
+   "name": "National_Park_fs",
+   "fields": [
+    "objectid",
+    "name_full",
+    "相關規",
+    "SHAPE__Length",
+    "SHAPE__Area"
+   ]
+  },
+  "Commercial_Port_fs/FeatureServer/4": {
+   "name": "新商港測試機",
+   "fields": [
+    "objectid",
+    "name",
+    "項次",
+    "名稱",
+    "座標類型",
+    "半徑",
+    "所在地_應公告之地方政府_",
+    "管理_及會商_機關",
+    "管理_及會商_機關聯絡方式",
+    "條件",
+    "說明",
+    "有效日期起",
+    "有效日期迄",
+    "SHAPE__Length",
+    "SHAPE__Area"
+   ]
+  }
+ },
+ "laws": {
+  "民用航空法": {
+   "pcode": "K0090001",
+   "amended": "民國112年06月28日"
+  },
+  "遙控無人機管理規則": {
+   "pcode": "K0090083",
+   "amended": "民國113年11月14日"
+  }
+ },
+ "seenAnnouncements": [
+  {
+   "title": "TOP有關遙控無人機申請案派遣協調人員至航管單位之登記方式",
+   "date": "2024.01.19"
+  },
+  {
+   "title": "新北市政府公告2027閃耀新北1314跨河煙火活動禁止遙控無人機飛航活動之...",
+   "date": "2026.11.06"
+  },
+  {
+   "title": "新北市政府公告2026新北歡樂耶誕城活動禁止遙控無人機飛航活動之區域及時間",
+   "date": "2026.11.06"
+  },
+  {
+   "title": "臺中市政府公告「玖壹壹南北貳路音樂節2026活動禁止遙控無人機飛航活動之區...",
+   "date": "2026.11.05"
+  },
+  {
+   "title": "衛生福利部中央健康保險署進行主機維護作業",
+   "date": "2026.11.02"
+  },
+  {
+   "title": "臺東縣公告2026臺灣國際衝浪公開賽禁止遙控無人機飛航活動之區域、時間及其...",
+   "date": "2026.11.02"
+  },
+  {
+   "title": "新竹縣政府公告「台積運動會」禁止遙控無人機飛航活動之區域、時間及其他管理事項",
+   "date": "2026.10.20"
+  },
+  {
+   "title": "【新北市政府公告】公告修正本市115國慶晚會活動禁止遙控無人機飛航活動之區...",
+   "date": "2026.10.05"
+  },
+  {
+   "title": "臺北市政府公告2026台北101國慶煙火暨無人機展演禁止遙控無人機飛航活動...",
+   "date": "2026.09.24"
+  },
+  {
+   "title": "新北市政府公告「115國慶晚會」活動禁止遙控無人機飛航活動之區域及時間",
+   "date": "2026.09.14"
+  },
+  {
+   "title": "嘉義縣政府公告「嘉義縣太興村候鳥黃頭鷺遷徙季節禁止遙控無人機飛航活動之區域...",
+   "date": "2026.09.08"
+  },
+  {
+   "title": "司法院115年8月1日起全面實施強制執行債權人均得以 司法院電子訴訟文書服...",
+   "date": "2026.08.25"
+  },
+  {
+   "title": "屏東縣政府公告「探空火箭發射任務所需」禁止遙控無人機飛航活動之區 域、時間...",
+   "date": "2026.08.25"
+  },
+  {
+   "title": "115年漢光42號演習期間暫停民用遙控無人機活動申請業者派員赴航管單位",
+   "date": "2026.07.29"
+  },
+  {
+   "title": "衛生福利部中央健康保險署訂於115年8月2日08:00至16:00進行機房維護",
+   "date": "2026.07.28"
+  },
+  {
+   "title": "臺東縣政府公告修正「2026臺灣國際熱氣球嘉年華」禁止遙控無人機飛航活動之...",
+   "date": "2026.07.16"
+  },
+  {
+   "title": "臺北市政府公告「2026大稻埕夏日節」禁止遙控無人機飛航活動之區 域、時間...",
+   "date": "2026.07.01"
+  },
+  {
+   "title": "衛生福利部中央健康保險署訂於115年6月6日08:00至16:00進行機房維護",
+   "date": "2026.06.01"
+  },
+  {
+   "title": "臺東縣「2026臺灣國際熱氣球嘉年華」禁止遙控無人機飛航活動之區域、時間及...",
+   "date": "2026.05.20"
+  },
+  {
+   "title": "公告臺東縣「2026東浪嘉年華」禁止遙控無人機飛航活動之區域、時間及其他管理事項",
+   "date": "2026.05.07"
+  },
+  {
+   "title": "澎湖縣政府公告「2026澎湖國際海上花火節」煙火施放活動及無人機科技燈光秀管制",
+   "date": "2026.04.18"
+  },
+  {
+   "title": "嘉義縣政府公告嘉義縣115年全國中等學校運動會禁止遙控無人機飛航活動之區域、時間",
+   "date": "2026.04.07"
+  },
+  {
+   "title": "雲林縣政府公告「白沙屯媽祖進香活動期間禁止遙控無人機飛航活動之區域及時間」",
+   "date": "2026.04.02"
+  },
+  {
+   "title": "苗栗縣政府公告「2026白沙屯媽祖進香」禁止遙控無人機飛航活動區域、時間及...",
+   "date": "2026.04.02"
+  },
+  {
+   "title": "臺南市政府公告「2026西拉雅森活節」禁止遙控無人機飛航活動區域、時間及其...",
+   "date": "2026.02.26"
+  },
+  {
+   "title": "南投縣政府公告「九九峰氦氣球樂園」活動禁止遙控無人機飛航活動之區域及時間",
+   "date": "2026.02.11"
+  },
+  {
+   "title": "臺中市政府公告「2026中臺灣燈會」活動禁止遙控無人機飛航活動之區域及時間",
+   "date": "2026.02.06"
+  },
+  {
+   "title": "[修正公告]嘉義縣政府公告修正2026台灣燈會活動禁止遙控無人機飛航活動之...",
+   "date": "2026.01.28"
+  },
+  {
+   "title": "115年春節及228連續假期加強疏運期間暫停遙控無人機（UAS）活動申請業...",
+   "date": "2026.01.22"
+  },
+  {
+   "title": "臺北市政府公告「英國Netflix攀登節目《Skyscraper Live...",
+   "date": "2026.01.22"
+  },
+  {
+   "title": "嘉義縣政府公告2026台灣燈會活動禁止遙控無人機飛航活動之區域、時間",
+   "date": "2026.01.14"
+  },
+  {
+   "title": "臺中市政府公告「頑童MJ116 OGS巡迴演唱會」活動禁止遙控無人機飛航活...",
+   "date": "2026.01.14"
+  },
+  {
+   "title": "雲林縣政府公告電光跨年點亮未來2025-2026雲林縣跨年晚會活動期間禁止...",
+   "date": "2025.12.29"
+  },
+  {
+   "title": "臺中市政府公告五月天回到那一天25週年巡迴演唱會台中站活動禁止遙控無人機飛...",
+   "date": "2025.12.29"
+  },
+  {
+   "title": "臺中市政府公告「2026臺中市跨年晚會活動」禁止遙控無人機飛 航活動之區域及時間",
+   "date": "2025.12.03"
+  },
+  {
+   "title": "新北市政府公告「2026閃耀新北1314跨河煙火」活動禁止遙控無人機飛航活...",
+   "date": "2025.12.03"
+  },
+  {
+   "title": "臺北市政府公告「臺北最High新年城-2026跨年晚會」活動禁止遙控無人機...",
+   "date": "2025.12.03"
+  },
+  {
+   "title": "臺中市政府公告「『玖壹壹南北貳路音樂節2025』」活動禁止遙控無人機飛航活...",
+   "date": "2025.11.04"
+  },
+  {
+   "title": "新竹縣政府公告「台積運動會」禁止遙控無人機飛航活動",
+   "date": "2025.10.30"
+  },
+  {
+   "title": "衛生福利部中央健康保險署訂於114年10月18日進行機房 維護",
+   "date": "2025.10.14"
+  }
+ ]
+}
