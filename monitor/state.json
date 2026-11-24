@@ -1,5 +1,5 @@
 {
- "lastChecked": "2026-11-06",
+ "lastChecked": "2026-11-24",
  "services": [
   "Hosted/CAA_Layer_Current_Edition/FeatureServer",
   "Hosted/Commercial_Port_fs/FeatureServer",
@@ -132,6 +132,10 @@
   }
  },
  "seenAnnouncements": [
+  {
+   "title": "嘉義市政府公告嘉義市第12屆市長及市議會第12屆議員選前之夜拜票活動禁止從...",
+   "date": "2026.11.23"
+  },
   {
    "title": "TOP有關遙控無人機申請案派遣協調人員至航管單位之登記方式",
    "date": "2024.01.19"
